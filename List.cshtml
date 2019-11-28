@@ -1,0 +1,87 @@
+﻿@model IEnumerable<EmployeeRecordApp.Models.Employee>
+
+@{
+    ViewBag.Title = "List";
+}
+<div style="font-family:Arial">
+
+
+    <h2>List of Employee</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <p>
+
+        @using (Html.BeginForm("List", "Home",FormMethod.Get))
+        {
+            <b>Search Option : </b> @Html.RadioButton("Option", "Age") <text>Age</text>
+            @Html.RadioButton("Option", "Salary") <text>Salary</text>
+            @Html.RadioButton("Option", "Location") <text>Location</text>
+            <br />
+
+            @Html.TextBox("search")
+            <input type="submit" value="Search" name="submit" class="btn btn-default" />
+            <br />
+        }
+
+        @Html.ActionLink("Back to List", "List")
+    </p>
+    <table class="table" border="1">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th></th>
+        </tr>
+
+        @if(Model.Count()==0)
+        {
+            <tr>
+                <td colspan="5">
+                    No rows match search criteria
+                </td>
+            </tr>
+        }
+        else
+        { 
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaritalStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+        }
+    </table>
+</div>
